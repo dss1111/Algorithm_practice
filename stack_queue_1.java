@@ -1,44 +1,40 @@
 import java.util.ArrayList;
-import java.util.Stack;
-
+import java.util.LinkedList;
+import java.util.Queue;
 public class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
-        int len=progresses.length;
-        int [] p = new int [len]; 
+        Queue<Integer> q = new LinkedList<>();
         ArrayList<Integer> arrayList = new ArrayList<>();
+        int len=progresses.length;
+        int p=0;
         for(int i=0;i<len;i++)
         {
-            p[i]=(100-progresses[i])/speeds[i];
+            p=(100-progresses[i])/speeds[i];
             if((100-progresses[i])%speeds[i]!=0)
             {
-                p[i]+=1;
+                p+=1;
             }
+            q.add(p);
         }
-        Stack<Integer> stack = new Stack<>();
-        int count;
-        for(int i=0;i<len;i++)
+
+        int target = q.poll();
+        int cnt = 1;
+        int num=0;
+        while(!q.isEmpty()) 
         {
-            stack.push(p[i]);
-            count=0;
-            if(i==len-1)
+            num = q.poll();
+            if(target >= num) 
             {
-                while(!stack.empty())
-                {
-                    stack.pop();
-                    count++;
-                }
-                arrayList.add(count);
+                cnt++;
             }
-            else if(p[i]<p[i+1]) //이부분이 문제.. 바로이전이랑 비교하지말고 큐를 이용해서 가장큰거랑 비교하면 풀수 있을듯
+            else 
             {
-                while(!stack.empty())
-                {
-                    stack.pop();
-                    count++;
-                }
-                arrayList.add(count);
+                arrayList.add(cnt);
+                cnt = 1;
+                target = num;
             }
         }
+        arrayList.add(cnt);
         int[] answer = new int[arrayList.size()];
         int size=0;
         for(int temp:arrayList){
