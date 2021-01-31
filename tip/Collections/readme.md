@@ -6,14 +6,25 @@
 ### remove
 # Set
 중복된 데이터를 저장(집합)
-### add
+### add(value)
+```
+add(a) ... a
+add(b) ... a b
+add(c) ... a b c
+add(a) ... a b c
+```
 ### size
-### remove
+### remove(key)
 # Map
 key, value로 이루어져 있고 key를 통해 value에 접근
 ### size
-### put
-### containsKey
-### keySet
-### values
-### remove
+### put(key, value)
+이미 중복된 key인 경우 value가 덮어씌워짐.
+### containsKey(key)
+키가 있는지 확인. boolean 리턴
+### keySet()
+key들을 set으로 리턴.
+### values()
+collection으로 value 리턴.
+### remove(key)
+### get(key)
