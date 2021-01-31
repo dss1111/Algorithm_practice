@@ -19,7 +19,7 @@ add(a) ... a b c
 key, value로 이루어져 있고 key를 통해 value에 접근
 ### size
 ### put(key, value)
-이미 중복된 key인 경우 value가 덮어씌워짐.
+이미 존재하는 key인 경우 value가 덮어씌워짐.
 ```
 put(1,10) ... (1,10) 
 put(2,20) ... (1,10) (2,20)
