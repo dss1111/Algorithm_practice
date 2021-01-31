@@ -20,6 +20,11 @@ key, value로 이루어져 있고 key를 통해 value에 접근
 ### size
 ### put(key, value)
 이미 중복된 key인 경우 value가 덮어씌워짐.
+```
+put(1,10) ... (1,10) 
+put(2,20) ... (1,10) (2,20)
+put(1,30) ... (1,30) (2,20)
+```
 ### containsKey(key)
 키가 있는지 확인. boolean 리턴
 ### keySet()
