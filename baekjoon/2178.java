@@ -20,7 +20,7 @@ public class bj2178 {
 			String str = br.readLine();
 			arr[n] = str.toCharArray();
 		}
-		bfs();
+		System.out.println(bfs());
 	}
 	static int bfs(){
 		Queue <int[]> q = new ArrayDeque<>();
@@ -42,6 +42,7 @@ public class bj2178 {
 				if(nextJ<0 || nextJ>=M) continue;
 				if(visit[nextI][nextJ] || arr[nextI][nextJ]=='0') continue;
 				q.add(new int[] {nextI,nextJ,step+1});
+				visit[nextI][nextJ]=true;
 			}
 		}
 		return 0;
