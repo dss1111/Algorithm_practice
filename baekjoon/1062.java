@@ -2,53 +2,60 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class Main {
-	static int N,K,result;
-	static List <Word> words = new ArrayList<>();
-	static class Word implements Comparable<Word>{
-		char [] word;
-		int point;
-		int bit;
-		Word(String s){
-			word = s.toCharArray();
-		}
-		@Override
-		public int compareTo(Word o) {
-			return o.point-this.point;
-		}
-	}
+public class bj1062 {
+	static int N,K,result,bit;
+	static List <char[]> words = new ArrayList<>();
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
 		K = Integer.parseInt(st.nextToken());
+		if(K<5) {
+			System.out.println(0);
+			return;
+		}
+		if(K==26) {
+			System.out.println(N);
+			return;
+		}
+		//(1<<25)>>(alpha - 'a') 왼쪽부터 비트채우기
+		//1<<(alpha - 'a') 오른쪽부터 채우기
+		bit |= 1<<('a'-'a');
+		bit |= 1<<('c'-'a');
+		bit |= 1<<('i'-'a');
+		bit |= 1<<('n'-'a');
+		bit |= 1<<('t'-'a');
 		
 		for(int n=0;n<N;n++) {
-			Word w = new Word(br.readLine());
-			words.add(w);
-			makeBit(w);
+			char[] word = br.readLine().toCharArray();
+			words.add(word);
 		}
-		Collections.sort(words);
-		for(Word w : words) {
-			if(w.point<=K) {
-				result++;
-			}
-		}
+		dfs(0,0,bit);
 		System.out.println(result);
 	}
-	static void makeBit(Word w) {
-		int bit=0;
-		char [] word = w.word;
-		for(int i=0;i<w.word.length;i++) {
-			int now = (1<<25)>>(word[i] - 'a'); // 25비트 밀어서 a부터 체크해놓고 알파벳 순서만큼 다시 오른쪽으로 밀기
-			bit = bit | now; // 알파벳 체크
+	static void dfs(int index, int start,int bit) {
+		if(index == K-5) { //종결조건 acint빼고 나머지
+			int count = 0;
+			for(char[] word : words) { //단어들
+				boolean chk = true;
+				for(char letter: word) { //글자들
+					if((bit&1<<(letter-'a'))==0) { //1&1 = 1 나머지들
+						chk = false;
+						break;
+					}
+				}
+				if(chk) count++;
+			}
+			result = Math.max(result, count);
+			return;
 		}
-		w.bit = bit;
-		w.point = Integer.bitCount(bit);
+		// 나머지 브루트포스
+		for(int i = start;i<26;i++) {
+			if((bit&1<<i)!=0) continue;
+			dfs(index+1,i+1,bit | 1<<i);
+		}
 	}
-
 }
