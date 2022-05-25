@@ -41,7 +41,7 @@ public class bj1043 {
 			for(int j=1; j<count; j++) {
 				person2 = Integer.parseInt(st.nextToken());
 				people[m].add(person2);
-				union(person1, person2); // 두명씩 union하면 모두가 같은 parent를 갖게 됨.
+				union(person1, person2); 
 				person1 = person2;
 			}
 		}
@@ -51,14 +51,14 @@ public class bj1043 {
 		int result = 0;
 		for(int i=0;i<=N;i++) {
 			if(isKnow[i]) {
-				isKnow[find(i)] = true;
+				isKnow[find(i)] = true; // 알고있음 체크
 			}
 		}
 		int parent;
 		for(int i=0;i<M;i++) {
 			if(people[i].size() > 0) {
 				parent = find(people[i].get(0));
-				if(!isKnow[parent]) {
+				if(!isKnow[parent]) { // 거짓말인줄 모르는 그룹
 					result++;
 				}
 			}
