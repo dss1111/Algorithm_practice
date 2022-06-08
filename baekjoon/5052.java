@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-public class bj19638 {
+public class bj5052 {
 		static int T,N;
 		static String[] numbers;
 		static StringBuffer sb;
